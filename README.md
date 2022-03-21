@@ -3,7 +3,7 @@
 Vagrantfile create 1 VM
 
 ```bash
-VM_ID = "debug-fusionpbx"
+VM_ID = "minhtuan"
 
 Vagrant.configure("2") do |config|
   config.vm.box = "bento/debian-9"
