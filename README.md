@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
     node.vm.hostname = "#{VM_ID}"
     # node.vm.network :private_network, ip: "192.168.11.10"
     # node.vm.network :public_network, ip: "192.168.2.12", bridge: "Qualcomm Atheros QCA61x4A Wireless Network Adapter"
-		node.vm.network :public_network, ip: "192.168.2.12"
+    node.vm.network :public_network, ip: "192.168.2.12"
   end
 end
 ```
