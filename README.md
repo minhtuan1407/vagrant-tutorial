@@ -6,7 +6,7 @@ Vagrantfile create 1 VM
 VM_ID = "minhtuan"
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "bento/debian-9"
+  config.vm.box = "bento/debian-10"
   config.vm.box_check_update = true
   config.ssh.password = "vagrant"
   config.vm.define "#{VM_ID}" do |node|
@@ -20,6 +20,9 @@ Vagrant.configure("2") do |config|
     # node.vm.network :public_network, ip: "192.168.1.10", bridge: "Qualcomm Atheros QCA61x4A Wireless Network Adapter"
     node.vm.network :public_network, ip: "192.168.1.10"
   end
+  config.vm.provision "shell",
+    run: "always",
+    inline: "apt-get install net-tools && route add default gw 192.168.1.2"
 end
 ```
 
@@ -30,7 +33,7 @@ VM_ID = "minhtuan"
 NUM_WORKER_NODES = 2
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/bionic64"
+  config.vm.box = "bento/ubuntu-22.04"
   config.vm.box_check_update = true
 
 # Single Control-Plane node  
@@ -42,7 +45,6 @@ Vagrant.configure("2") do |config|
     end
     node.vm.hostname = "#{VM_ID}-master"
     node.vm.network :private_network, ip: "192.168.11.10"
-
   end
 
 # Worker nodes
@@ -55,9 +57,11 @@ Vagrant.configure("2") do |config|
       end
       node.vm.hostname = "#{VM_ID}-worker-#{i}"
       node.vm.network :private_network, ip: "192.168.11.1#{i}"
-
     end
   end
+  config.vm.provision "shell",
+    run: "always",
+    inline: "apt-get install net-tools && route add default gw 192.168.1.2"
 end
 ```
 
